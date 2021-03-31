@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2017 remmote.com
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="wishlist_add_product">
+       <observer name="remmote_facebookpixel_addwishlist" instance="Remmote\Facebookpixel\Observer\AddWishlist" />
+    </event>
+    <event name="customer_register_success">
+       <observer name="remmote_facebookpixel_completeregistration" instance="Remmote\Facebookpixel\Observer\CompleteRegistration" />
+    </event>
+</config>

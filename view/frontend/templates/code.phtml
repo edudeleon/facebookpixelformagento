@@ -1,0 +1,95 @@
+<?php  
+/**
+ * @extension   Remmote_Facebookpixel
+ * @author      Remmote    
+ * @copyright   2019 - Remmote.com
+ * @descripion  Pixel code template
+ */
+?>
+<!-- Facebook Pixel Code - Remmote © -->
+<script> 
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod? 
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n; 
+n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0; 
+t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, 
+document,'script','//connect.facebook.net/en_US/fbevents.js');
+
+fbq('init',  '<?php echo $block->getPixelId() ?>');
+fbq('track', 'PageView');
+
+<?php
+//<![CDATA[
+/* @escapeNotVerified */ echo $block->getViewContentEvent();
+/* @escapeNotVerified */ echo $block->getSearchEvent();
+/* @escapeNotVerified */ echo $block->getAddToWishlistEvent();
+/* @escapeNotVerified */ echo $block->getInitiateCheckoutEvent();
+/* @escapeNotVerified */ echo $block->getPurchaseEvent();
+/* @escapeNotVerified */ echo $block->getCompleteRegistrationEvent();
+?>
+//]]>
+</script> 
+<noscript><img height="1" width="1" style="display:none" alt="Facebook Pixel" src="https://www.facebook.com/tr?id=<?php echo $block->getPixelId() ?>&ev=PageView&noscript=1"/></noscript>
+<!-- End Facebook Pixel Code - Remmote © -->
+
+<div id="remmote-fbpixel-content"></div>
+<script>
+	require(['jquery', 'jquery/ui'], function($){
+  		$(document).ready(function() {
+
+            //Add To Cart event
+  			var productId 	= '';
+    		$('#product-addtocart-button, .tocart').click(function(){
+                //Product page view
+    			if($(this).attr('id') == 'product-addtocart-button'){
+    				productId = $("#product_addtocart_form input[name='product']").val();
+
+                //Product listing
+				} else if ($(this).hasClass("tocart")){
+                    var dataPostAttr = $(this).attr('data-post');
+                    if (typeof dataPostAttr !== typeof undefined && dataPostAttr !== false) {
+    					var productData = jQuery.parseJSON($(this).attr('data-post'));
+    					if(productData.data.product){
+    						productId = productData.data.product;
+    					}
+                    } else {
+                        //Try to get ID from product form
+                        productId = $(this).closest("form").find("input[name='product']").val();
+                    }
+    			}
+
+    			if(productId){
+	    			$.ajax({
+	                    url: "<?php echo $this->getUrl('remmotefacebookpixel/trackevent/addtocart') ?>",
+	                    data: {product_id:productId},
+	                    type: "POST"
+	                }).done(function (data) {
+	                	if(data.tracking_code){
+	                    	$('#remmote-fbpixel-content').html('<script>'+data.tracking_code+'<\/script>');
+	                	} else {
+	                		$('#remmote-fbpixel-content').html('');
+	                	}
+	                });
+    			}
+    		});
+
+            //Lead event
+            $('.newsletter .actions .subscribe').click(function(){
+                var email = $(this).closest("form").find("input[name='email']").val();
+                if(email){
+                    $.ajax({
+                        url: "<?php echo $this->getUrl('remmotefacebookpixel/trackevent/lead') ?>",
+                        data: {},
+                        type: "POST"
+                    }).done(function (data) {
+                        if(data.tracking_code){
+                            $('#remmote-fbpixel-content').html('<script>'+data.tracking_code+'<\/script>');
+                        } else {
+                            $('#remmote-fbpixel-content').html('');
+                        }
+                    });
+                }
+            });
+
+  		});
+	});
+</script>

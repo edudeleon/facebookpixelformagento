@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2017 remmote.com
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="remmote" translate="label" sortOrder="200">
+            <label>Remmote Extensions</label>
+        </tab>
+ 
+        <section id="remmote_facebookpixel" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Facebook Pixel For M2</label>
+            <tab>remmote</tab>
+            <resource>Remmote_Facebookpixel::remmote_facebookpixel</resource>
+            
+            <group id="info" translate="label" type="label" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0">
+                <frontend_model>Remmote\Facebookpixel\Block\System\Config\Info</frontend_model>
+            </group>
+
+            <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>General Configuration</label>
+                <comment><![CDATA[This extension will install Facebook Pixel in your Magento store. Test in real time using the Google Chrome extension: <a href="https://chrome.google.com/webstore/detail/facebook-pixel-helper/fdgfkebogiimcoedlicjlajpkdmockpc" target="_blank">Facebook Pixel Helper</a>.
+                <br/><strong>Extension version: 2.0.0</strong>
+                ]]></comment>
+
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="1">
+                    <label>Module Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Enable Extension?</comment>
+                </field>
+
+                <field id="pixel_id" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1">
+                    <label>Facebook Pixel ID</label>
+                    <comment>Your Facebook Pixel ID</comment>
+                </field>
+
+                <field id="disable_pixel_if_no_cookies" translate="label comment" type="select" sortOrder="35" showInDefault="1" showInWebsite="1">
+                    <label>Disable facebook pixel for users that don't accept cookies</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>If you want to disable facebook pixel for users that don't allow cookies, set this option to YES. This option is useful if you want to implement GDPR in your site.</comment>
+                </field>
+
+                <field id="cookie_name" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1">
+                    <label>Cookie name to check</label>
+                    <comment>Enter the name of the cookie that you want to validate. If this cookie is not present in your user's browser, facebook pixel will be disabled. The cookie name depends on your GDPR implementation. An example of a cookie that you might want to check is 'cookie_consent_targeting'. </comment>
+                    <depends>
+                        <field id="disable_pixel_if_no_cookies">1</field>
+                    </depends>
+                </field>
+
+            </group>
+
+            <group id="events" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Facebook Pixel Events</label>
+                <comment><![CDATA[Choose the events you want to enable. Learn more about Facebook events <a href="https://web.facebook.com/business/help/952192354843755" target="_blank">here</a>. <br/> <strong> NOTE: </strong> This free extension only tracks Facebook Events. It does NOT track additional parameters such as product sku, name, value, etc. If you need to track additional parameters and also export your product catalog to Facebook you can check our paid extension in the following link <a href="https://www.remmote.com/product/facebook-pixel-for-magento2/" target="_blank">Facebook Pixel and Product Catalog for M2</a>. Use the coupon code <strong>magentoconnect</strong> to get 20% discount in your next purchase.]]></comment>
+
+                <field id="view_content" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1">
+                    <label>Enable ViewContent Event</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Event triggers when someone visits the product page.</comment>
+                </field>
+
+                <field id="search" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1">
+                    <label>Enable Search Event</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Event triggers when someone searches for something using the search feature. Compatible with Advanced Search extension.</comment>
+                </field>
+
+                <field id="add_to_cart" translate="label" type="select" sortOrder="30" showInDefault="1" showInWebsite="1">
+                    <label>Enable AddToCart Event</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Event triggers when someone adds a product to the cart (e.g. click on 'Add To Cart' button).</comment>
+                </field>
+
+                <field id="add_to_wishlist" translate="label" type="select" sortOrder="40" showInDefault="1" showInWebsite="1">
+                    <label>Enable AddToWishlist Event</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Event triggers when someone adds a product to the wishlist (e.g. click on 'Add To Wishlist' button). Customer needs to be logged in.</comment>
+                </field>
+
+                <field id="initiate_checkout" translate="label" type="select" sortOrder="50" showInDefault="1" showInWebsite="1">
+                    <label>Enable InitiateCheckout Event</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Event triggers when someone lands to the checkout page. Compatible with One Step Checkout.</comment>
+                </field>
+
+               <!--  <field id="add_payment_info" translate="label" type="select" sortOrder="60" showInDefault="1" showInWebsite="1">
+                    <label>Enable AddPaymentInfo Event</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Event triggers when someone selects a payment method in the checkout process page.</comment>
+                </field> -->
+
+                <field id="purchase" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1">
+                    <label>Enable Purchase Event</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Event triggers after someone places an order in your store (success page view).</comment>
+                </field>
+
+                <field id="lead" translate="label" type="select" sortOrder="80" showInDefault="1" showInWebsite="1">
+                    <label>Enable Lead Event</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Event triggers when someone signup to the newsletter.</comment>
+                </field>
+
+                <field id="complete_registration" translate="label" type="select" sortOrder="90" showInDefault="1" showInWebsite="1">
+                    <label>Enable Complete Registration Event</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>Event triggers when someone creates an account.</comment>
+                </field>
+            </group>
+
+        </section>
+ 
+    </system>
+</config>

@@ -1,0 +1,16 @@
+{
+    "name": "remmote/magento2-facebookpixel",
+    "description": "Remmote - Facebook pixel for M2",
+    "type": "magento2-module",
+    "version": "2.0.0",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "autoload": {
+        "files": [ "registration.php" ],
+        "psr-4": {
+            "Remmote\\Facebookpixel\\": ""
+        }
+    }
+}
